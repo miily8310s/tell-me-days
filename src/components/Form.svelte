@@ -7,19 +7,33 @@ import { getDay } from "date-fns";
   let weekDays = []
   let resultDays = []
 
-  function testff() {
+  function getResultDays() {
     if(yeanMonth !== '' && weekDays.length !== 0) {
+      resultDays = []
       const testMonth = new Date(yeanMonth)
       const testDaysinMonth = getDaysInMonth(testMonth)
 
-      for (let i = 0; i < testDaysinMonth; i++) {
+      for (let i = 1; i <= testDaysinMonth; i++) {
         const testDay = new Date(testMonth.getFullYear(), testMonth.getMonth() , i)
         if ((weekDays.indexOf(getDay(testDay))) > -1) {
           resultDays.push(i)
         }
       }
-      console.log(resultDays)
+      document.getElementById('answer').textContent = resultDays.join(' ')
     }
+  }
+
+  function resetState() {
+    yeanMonth = ''
+    weekDays = []
+    resultDays = []
+  }
+
+  function copyDays() {
+    console.log(document.querySelector("p.border-b"))
+    const copyText:HTMLInputElement = <HTMLInputElement>document.querySelector("p.border-b");
+    copyText.select();
+    document.execCommand("copy");
   }
 
 </script>
@@ -30,6 +44,7 @@ import { getDay } from "date-fns";
     <div class="flex flex-row items-center sm:text-xl text-sm leading-4 mb-6">
       <label for="" class="mr-10 font-semibold break-normal">年月</label>
       <input type="month" class="h-12 leading-6" bind:value={yeanMonth}>
+      <button on:click={() => resetState()} class="ml-16 p-2 bg-green-200 rounded text-white">クリア</button>
     </div>
     <div class="flex flex-row items-center sm:text-xl text-sm leading-4 mb-6">
       <label for="weekday" class="mr-9 font-semibold break-normal sm:w-1/12 w-10 xl:w-10">曜日</label>
@@ -66,14 +81,17 @@ import { getDay } from "date-fns";
     </div>
   </div>
   <button 
-    class="md:text-xl text-sm font-semibold leading-4 p-3 text-white bg-blue-500 rounded"
-    on:click={testff}
+    class="md:text-xl text-sm font-semibold leading-4 p-3 text-white bg-blue-500 hover:bg-blue-700 rounded"
+    on:click={() => getResultDays()}
   >
     日付を教えてもらう
   </button>
-  <div class="shadow-md p-6 w-full md:w-2/3 mt-14 flex justify-center bg-white">
-    <div class="w-full md:w-2/3 py-3 text-2xl text-center border-b border-green-400">
-      <input type="text" bind:value={resultDays}>
-    </div>
+  <div class="shadow-md px-6 py-3 w-full md:w-2/3 mt-14 flex justify-center flex-wrap text-xl bg-white">
+    <p class="border-b border-green-400">{resultDays.length !== 0? resultDays.join(' ') : '年月と曜日を入力しましょう！'}</p>
+    {#if resultDays.length !== 0}
+    	<button on:click={() => copyDays()} class="ml-7 p-1 bg-green-400 hover:bg-green-600 text-sm rounded">
+    		コピー
+    	</button>
+    {/if}
   </div>
 </div>
