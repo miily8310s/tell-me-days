@@ -18,6 +18,7 @@ import { getDay } from "date-fns";
           resultDays.push(i)
         }
       }
+      console.log(resultDays)
     }
   }
 
