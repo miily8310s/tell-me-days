@@ -13,6 +13,7 @@
     "@rollup/plugin-typescript": "^6.0.0",
     "@tsconfig/svelte": "^1.0.0",
     "autoprefixer": "^10.1.0",
+    "clipboard": "^2.0.8",
     "postcss": "^8.2.2",
     "postcss-load-config": "^3.0.0",
     "rollup": "^2.3.4",

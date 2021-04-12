@@ -1,7 +1,9 @@
 <script lang="ts">
-import { getDay } from "date-fns";
-
+  import { getDay } from "date-fns";
   import getDaysInMonth from "date-fns/getDaysInMonth";
+  import ClipboardJS from "clipboard"
+  
+  new ClipboardJS('.copy-value')
 
   let yeanMonth = ''
   let weekDays = []
@@ -19,7 +21,6 @@ import { getDay } from "date-fns";
           resultDays.push(i)
         }
       }
-      document.getElementById('answer').textContent = resultDays.join(' ')
     }
   }
 
@@ -28,14 +29,6 @@ import { getDay } from "date-fns";
     weekDays = []
     resultDays = []
   }
-
-  function copyDays() {
-    console.log(document.querySelector("p.border-b"))
-    const copyText:HTMLInputElement = <HTMLInputElement>document.querySelector("p.border-b");
-    copyText.select();
-    document.execCommand("copy");
-  }
-
 </script>
 
 <div class="flex flex-col justify-center items-center my-6">
@@ -87,10 +80,10 @@ import { getDay } from "date-fns";
     日付を教えてもらう
   </button>
   <div class="shadow-md px-6 py-3 w-full md:w-2/3 mt-14 flex justify-center flex-wrap text-xl bg-white">
-    <p class="border-b border-green-400">{resultDays.length !== 0? resultDays.join(' ') : '年月と曜日を入力しましょう！'}</p>
+    <p class="border-b border-green-400 answer">{resultDays.length !== 0? resultDays.join(' ') : '年月と曜日を入力しましょう！'}</p>
     {#if resultDays.length !== 0}
-    	<button on:click={() => copyDays()} class="ml-7 p-1 bg-green-400 hover:bg-green-600 text-sm rounded">
-    		コピー
+    	<button class="ml-7 p-1 bg-green-400 hover:bg-green-600 text-sm rounded copy-value" data-clipboard-text={resultDays.join(',')}>
+    		CSV形式でコピー
     	</button>
     {/if}
   </div>
