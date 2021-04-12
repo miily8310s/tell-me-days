@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getDay } from "date-fns";
+  import getDay from "date-fns/getDay";
   import getDaysInMonth from "date-fns/getDaysInMonth";
   import ClipboardJS from "clipboard"
   
